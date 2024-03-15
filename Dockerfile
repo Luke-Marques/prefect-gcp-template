@@ -13,8 +13,17 @@ ENV PYTHONFAULTHANDLER=True \
     POETRY_HOME='/usr/local' \
     POETRY_VERSION=1.8.1
 
-# System dependencies
-RUN curl -sSL https://install.python-poetry.org | python3 -
+# Install setuptools for distutils
+RUN pip install setuptools
+
+# Install pipx
+RUN python3 -m pip install pipx && python3 -m pipx ensurepath
+ENV PATH="/root/.local/bin:$PATH"
+
+# Install poetry for dependency management
+RUN python3 -m pipx install poetry && python3 -m pipx upgrade poetry
+RUN poetry config cache-dir ${WORKSPACE_DIR}/.cache && \
+    poetry config virtualenvs.in-project true
 
 # Copy only requirements to cache them in docker layer
 WORKDIR /code

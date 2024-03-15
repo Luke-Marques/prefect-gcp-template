@@ -1,7 +1,7 @@
 name: "Docker image for Prefect Cloud execution layer on Google Cloud"
 branding:
   icon: cloud
-  color: blue 
+  color: blue
 description: "Packages Prefect flow dependencies into a Docker image and pushes it to Google Artifact Registry"
 inputs:
   prefect_api_key:
@@ -36,12 +36,14 @@ runs:
       uses: google-github-actions/auth@v1
       with:
         credentials_json: "${{ inputs.gcp_credentials_json }}"
-    
+
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v1
 
     - id: repository
-      run: gcloud artifacts repositories create ${{ inputs.artifact_repository }} --repository-format=docker --location=${{ inputs.region }}
+      run: |
+        gcloud auth configure-docker ${{ inputs.region }}-docker.pkg.dev
+        gcloud artifacts repositories create ${{ inputs.artifact_repository }} --repository-format=docker --location=${{ inputs.region }}
       continue-on-error: true
       shell: bash
 
@@ -58,7 +60,7 @@ runs:
         registry: "${{ inputs.region }}0docker.pkg.dev"
         username: _json_key
         password: ${{ inputs.gcp_credentials_json }}
-      
+
     - id: build-image
       run: |
         docker build -q --build-arg PREFECT_API_KEY=${{ inputs.prefect_api_key }} --build-arg PREFECT_API_URL=${{ inputs.prefect_api_url }} -t "${{ env.RAW_IMAGE }}" -f ${{ inputs.dockerfile_path }} .

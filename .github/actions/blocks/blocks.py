@@ -7,7 +7,7 @@ from prefect.filesystems import GitHub
 from prefect_gcp.cloud_run import CloudRunJob
 from prefect_gcp.credentials import GcpCredentials
 
-REPO = "https://github.com/Luke-Marques/ChessRatings"
+REPO = "https://github.com/Luke-Marques/prefect-gcp-template"
 parser = argparse.ArgumentParser()
 parser.add_argument("-b", "--branch", default="main")
 parser.add_argument("-r", "--repo", default=REPO)

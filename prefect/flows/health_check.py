@@ -1,8 +1,7 @@
 import sys
 import os
-import prefect
 from prefect import task, flow, get_run_logger
-from platform import node, platform, python_version
+import platform
 
 
 @task
@@ -26,7 +25,6 @@ def log_platform_info():
 @flow()
 def health_check():
     log_platform_info()
-
 
 
 if __name__ == "__main__":

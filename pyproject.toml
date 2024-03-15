@@ -9,6 +9,7 @@ readme = "README.md"
 python = "^3.12"
 prefect = "^2.16.4"
 prefect-gcp = "^0.5.7"
+ruff = "^0.3.3"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.3.2"

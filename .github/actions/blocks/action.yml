@@ -13,7 +13,7 @@ inputs:
   block_name:
     description: "Name of the GitHub, CloudRunJob and GcpCredentials blocks"
     required: false
-    default: "gcp-credentials-prefect-deployment-template" # change to your gcp-credentials prefect block name
+    default: "default" # change to your gcp-credentials prefect block name
   image_uri:
     description: "Name of the AR image URI"
     required: true

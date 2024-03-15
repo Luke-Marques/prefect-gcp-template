@@ -64,7 +64,7 @@ jobs:
           machine_type: ${{ github.event.inputs.machine_type }}  # optional
 
       - id: create-blocks
-        uses: ./.github/actions/blocks-quickstart
+        uses: ./.github/actions/blocks
         with:
           prefect_api_key: ${{ secrets.PREFECT_API_KEY }}
           prefect_api_url: ${{ secrets.PREFECT_API_URL }}

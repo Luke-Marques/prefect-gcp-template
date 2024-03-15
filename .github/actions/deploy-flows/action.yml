@@ -50,17 +50,14 @@ runs:
     - name: Install dependencies
       shell: bash
       run: poetry install --no-interaction --no-root
-    - name: Activate venv
-      shell: bash
-      run: source .venv/bin/activate
 
     - id: login-prefect
       run: |
-        prefect config set PREFECT_API_KEY=${{ inputs.prefect_api_key }}
-        prefect config set PREFECT_API_URL=${{ inputs.prefect_api_url }}
+        poetry run prefect config set PREFECT_API_KEY=${{ inputs.prefect_api_key }}
+        poetry run prefect config set PREFECT_API_URL=${{ inputs.prefect_api_url }}
       shell: bash
 
     - run: |
-        prefect deployment build ${{ inputs.flow_entrypoint }} -n ${{ inputs.deployment }} -q ${{ inputs.queue }} \
+        poetry run prefect deployment build ${{ inputs.flow_entrypoint }} -n ${{ inputs.deployment }} -q ${{ inputs.queue }} \
         -sb "${{ inputs.storage_block }}" -ib "${{ inputs.infrastructure_block }}" --skip-upload -a -v $GITHUB_SHA
       shell: bash

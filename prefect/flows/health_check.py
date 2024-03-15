@@ -1,14 +1,20 @@
-import sys
 import os
-from prefect import task, flow, get_run_logger
 import platform
+import sys
+from typing import Callable
+
+from prefect import flow, get_run_logger, task
+
+
+def table_text() -> Callable:
+    return "{0:>22}:  {1:<50}".format
 
 
 @task
 def log_platform_info():
     logger = get_run_logger()
     platform.system()
-    # a nifty formatter to display our output in orderly columns
+    # Nifty formatter to display our output in orderly columns
     table_text = "{0:>22}:  {1:<50}".format
     # All Cloud Run job container hostnames should start with 'SandboxHost'
     logger.info(table_text("Host's network name", f"{platform.node()} 🚀"))

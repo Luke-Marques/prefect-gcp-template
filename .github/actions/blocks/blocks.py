@@ -2,10 +2,13 @@
 python blocks.py -b $GITHUB_REF_NAME -r "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY" \
 -n ${{ inputs.block_name }} -i ${{ inputs.image_uri }} --region ${{ inputs.region }}
 """
+
 import argparse
-from prefect.filesystems import GitHub
+
 from prefect_gcp.cloud_run import CloudRunJob
 from prefect_gcp.credentials import GcpCredentials
+
+from prefect.filesystems import GitHub
 
 REPO = "https://github.com/Luke-Marques/prefect-gcp-template"
 parser = argparse.ArgumentParser()
